@@ -1,0 +1,43 @@
+.Navbar{
+  display: flex;
+  box-shadow: 0px 0.18641rem 0.4654rem rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+}
+
+.Nav-logo{
+  margin-left: 5px;
+}
+
+.Nav-list{
+  display: flex;
+  list-style: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 20px;
+}
+
+.Nav-list > li {
+  margin-right: 6px;
+}
+
+.DropDownList{
+  cursor: pointer;
+  align-items: center;
+}
+
+.ArrowImage{
+  max-width: 3%;
+  margin-top: 10px;
+  margin-left: 5px;
+  transition: transform ;
+}
+
+.LoginTrue{
+  color: green;
+}
+
+.LoginFalse{
+  color: red;
+}
