@@ -31,8 +31,11 @@ const DisplayMachine = () => {
 
     return (
         <>
-            <div>
+            <div className="display-container">
+                <div className="page-title">
                 <h2>Machines List</h2>
+                </div>
+                <div className="machine-list">
                 {error ? (
                     <p>Error: {error}</p>
                 ) : (
@@ -43,7 +46,7 @@ const DisplayMachine = () => {
                                 {machine.components.map((component, compIndex) => (
                                     <li key={compIndex}>
                                         {component.name}: {component.description}
-                                        <button onClick={() => window.open(`http://localhost:3000/images/${component.image}`, '_blank')}>
+                                        <button className="display-img-button" onClick={() => window.open(`http://localhost:3000/images/${component.image}`, '_blank')}>
                                             View Image
                                         </button>
                                     </li>
@@ -52,6 +55,7 @@ const DisplayMachine = () => {
                         </div>
                     ))
                 )}
+                </div>
             </div>
         </>
     );

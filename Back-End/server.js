@@ -37,8 +37,8 @@ app.use('/admin', isAdmin, adminRoutes);
 app.post('/', loginUser);
 app.post('/logout', logoutUser);
 
-app.post('/adddata', upload.array('images'), handleAddData);
-app.use(dataRoutes);
+app.post('/adddata', upload, handleAddData);
+app.use('/api', dataRoutes);
 
 app.get('/machines', isAuthenticated, getMachines);
 

@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const MachineModel = require('../models/Machines');
 
+// Fetch all machines
+router.get('/machines', async (req, res) => {
+    try {
+        const machines = await MachineModel.find();
+        res.json(machines);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Update existing data
 router.put('/machines/:id', async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;

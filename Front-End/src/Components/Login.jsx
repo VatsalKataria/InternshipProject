@@ -1,6 +1,9 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import { useNavigate, Link } from "react-router-dom";
+import fb_logo from "/src/assets/fb.png"
+import ig_logo from "/src/assets/ig.png"
+import x_logo from "/src/assets/x.png"
 
 const Login = ({ setUser,user })=>{
 
@@ -46,15 +49,32 @@ const Login = ({ setUser,user })=>{
 
     return(
         <>
-        <div className="login-box">
-            <form onSubmit={handleSubmit}>
-                <p>E-Code: <input type="text" value={ECode} onChange={(e) => setECode(e.target.value)} /></p>
-                <p>Password: <input type="password" value={Password} onChange={(e) => setPassword(e.target.value)} /></p>
-                {error && <p className="LoginFalse">{error}</p>}
-                <button type="submit">Login</button>
-            </form>
-            {user && user.role === 'admin' && (
-                <p>Don&apos;t have and account?<Link to='/register' >Register Here</Link></p>)}
+        <div className="login-container">
+            <div className="left-pane">
+                <div className="brand">
+                    <h1>BlueStar <br />E-Cell</h1>
+                    <p>use of the website</p>
+                    <div className="social-icons">
+                        <a href='#'><img src={fb_logo} alt="fb-logo" /></a>
+                        <a href='#'><img src={ig_logo} alt="ig-logo" /></a>
+                        <a href='#'><img src={x_logo} alt="x-logo" /></a>
+                    </div>
+                </div>
+            </div>
+            <div className="login-box">
+                <h1>Welcome User</h1>
+                <h3>Please Enter your Login info</h3>
+                <form onSubmit={handleSubmit}>
+                    <p>E-Code: <input type="text" value={ECode} onChange={(e) => setECode(e.target.value)} /></p>
+                    <p>Password: <input type="password" value={Password} onChange={(e) => setPassword(e.target.value)} /></p>
+                    <p> <input type="checkbox" />Remember me</p>
+                    {error && <p className="LoginFalse">{error}</p>}
+                    <button className="login-button" type="submit">Login</button>
+                    <p className="contact-admin">Don&apos;t have and account? contact Admin</p>
+                </form>
+                {user && user.role === 'admin' && (
+                    <p>Don&apos;t have and account?<Link to='/register' >Register Here</Link></p>)}
+            </div>
         </div>
         </>
     )

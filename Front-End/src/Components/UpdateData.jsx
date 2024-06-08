@@ -8,7 +8,7 @@ const UpdateData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/machines', {
+        const response = await fetch('http://localhost:3000/api/machines', {
           credentials: 'include' // Include credentials such as cookies
         });
         if (response.ok) {
@@ -40,13 +40,13 @@ const UpdateData = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/machines/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/machines/${id}`, {
         method: 'DELETE'
       });
 
       if (response.ok) {
         // Remove deleted data from existingData state
-        setExistingData(prevData => prevData.filter(item => item.id !== id));
+        setExistingData(prevData => prevData.filter(item => item._id !== id));
       } else {
         console.error('Failed to delete data');
       }
@@ -56,27 +56,33 @@ const UpdateData = () => {
   };
 
   return (
-    <div>
-      <h2>Update or Delete Existing Data</h2>
+    <div className="update-container">
+      <div className="page-title">
+        <h2>Update or Delete Existing Data</h2>
+      </div>
+      <div className="update-machine-list">
       <ul>
         {existingData.map((data) => (
-          <li key={data.id}>
-            <div>Machine Name: {data.machineName}</div>
-            <div>
-              Components:
+          <li key={data._id}>
+            <h3>
+              Machine Name: {data.machineName}
+            </h3>
+            <p>
+            Components:
               <ul>
                 {data.components.map((component, componentIndex) => (
-                  <li key={`${data.id}-${componentIndex}`}>
+                  <li key={`${data._id}-${componentIndex}`}>
                     Name: {component.name}, Description: {component.description}
                   </li>
                 ))}
               </ul>
-            </div>
-            <button onClick={() => handleUpdate(data.id, data)}>Update</button>
-            <button onClick={() => handleDelete(data.id)}>Delete</button>
+            </p>
+            <button className="update-delete-button" onClick={() => handleUpdate(data._id, data)}>Update</button>
+            <button className="update-delete-button" onClick={() => handleDelete(data._id)}>Delete</button>
           </li>
         ))}
       </ul>
+      </div>
     </div>
   );
 };

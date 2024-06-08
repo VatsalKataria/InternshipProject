@@ -11,15 +11,21 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
+// Create a dynamic array of fields to handle images_0, images_1, etc.
+const fields = Array.from({ length: 10 }, (_, i) => ({ name: `images_${i}`, maxCount: 1 }));
+
+const upload = multer({ storage }).fields(fields);
 
 const handleAddData = async (req, res) => {
     try {
         const { machineName, components } = req.body;
-        const parsedComponents = JSON.parse(components).map((component, index) => ({
-            ...component,
-            image: req.files[index].filename ? req.files[index].filename : null
-        }));
+        const parsedComponents = JSON.parse(components).map((component, index) => {
+            const file = req.files && req.files[`images_${index}`] && req.files[`images_${index}`][0];
+            return {
+                ...component,
+                image: file ? file.filename : null
+            };
+        });
 
         if (!machineName || !parsedComponents || parsedComponents.length === 0) {
             return res.status(400).json({ error: 'Invalid input data' });

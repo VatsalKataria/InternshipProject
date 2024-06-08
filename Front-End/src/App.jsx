@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import DashBoard from './Components/DashBoard';
 import DisplayMachine from './Components/DisplayMachine';
 import UpdateData from './Components/UpdateData';
+import Footer from './Components/Footer';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import './App.css';
@@ -32,6 +33,7 @@ function App() {
   }, []);
 
   return (
+    <div className='wrapper'>
     <Router>
       <Navbar user={user} setUser={setUser} />
       <Routes>
@@ -39,39 +41,41 @@ function App() {
           exact
           path="/"
           element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />}
-        />
+          />
         <Route
           exact
           path="/dashboard"
           element={user ? <DashBoard user={user} /> : <Navigate to="/" />}
-        />
+          />
         <Route
           exact
           path="/adddata"
           element={user && user.role === 'admin' ? <AddData /> : <Navigate to="/" />}
-        />
+          />
         <Route
           exact
           path="/register"
           element={user && user.role === 'admin' ? <Register user={user} /> : <Navigate to='/' />}
-        />
+          />
         <Route
           exact
           path="/login"
           element={<Login setUser={setUser} />}
-        />
+          />
         <Route
           exact
           path="/machines"
           element={<DisplayMachine />}
-        />
+          />
         <Route
           exact
           path="/updatedata"
           element={user && user.role === 'admin' ? <UpdateData /> : <Navigate to="/" />}
-        />
+          />
       </Routes>
+      <Footer/>
     </Router>
+</div>
   );
 }
 

@@ -45,7 +45,13 @@ const Register = ({ user }) => {
     };
 
     return (
-        <div className="register-box">
+        <div className="register-container">
+            <div className="page-title">
+                <h1>
+                    Register new User
+                </h1>
+            </div>
+            <div className="register-box">
             <form onSubmit={handleSubmit}>
                 <p>Username: <input type="text" value={Username} onChange={(e) => setUsername(e.target.value)} /></p>
                 <p>E-mail Address: <input type="email" value={emailAdd} onChange={(e) => setemailAdd(e.target.value)} /></p>
@@ -61,8 +67,9 @@ const Register = ({ user }) => {
                     </p>
                 )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">Submit</button>
+                <button type="submit" className="register-button">Submit</button>
             </form>
+        </div>
         </div>
     );
 };

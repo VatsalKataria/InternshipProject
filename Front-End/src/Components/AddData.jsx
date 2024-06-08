@@ -29,7 +29,7 @@ const AddData = () => {
         formData.append('machineName', machineName);
         formData.append('components', JSON.stringify(components));
         components.forEach((component, index) => {
-            formData.append('images', component.image);
+            formData.append(`images_${index}`, component.image);
         });
 
         try {
@@ -54,24 +54,29 @@ const AddData = () => {
     };
 
     return (
-        <div>
-            <h2>{location.state ? 'Update Machine' : 'Add New Machine'}</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    Machine Name: <input type="text" value={machineName} onChange={(e) => setMachineName(e.target.value)} />
-                </div>
+        <div className="adding-container">
+            <div className="page-title">
+                <h2>{location.state ? 'Update Machine' : 'Add New Machine'}</h2>
+            </div>
+            <form onSubmit={handleSubmit} className="adding-box">
+                    <h2>
+                        Enter Machine Details
+                    </h2>
+                <p>
+                Machine Name: <input type="text" value={machineName} onChange={(e) => setMachineName(e.target.value)} required />
+                </p>
                 {components.map((component, index) => (
-                    <div key={index}>
-                        <div>
-                            Component Name: <input type="text" name="name" value={component.name} onChange={(e) => handleComponentChange(index, e)} />
-                        </div>
-                        <div>
-                            Component Description: <input type="text" name="description" value={component.description} onChange={(e) => handleComponentChange(index, e)} />
-                        </div>
-                        <div>
-                            Component Image: <input type="file" name="image" onChange={(e) => handleComponentChange(index, e)} />
-                            {component.preview && <img src={component.preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
-                        </div>
+                    <div key={index} className="components">
+                        <p>
+                        Component Name: <input type="text" name="name" value={component.name} onChange={(e) => handleComponentChange(index, e)} required />
+                        </p>
+                        <p>
+                        Component Description: <input type="text" name="description" value={component.description} onChange={(e) => handleComponentChange(index, e)} required />
+                        </p>
+                        <p>
+                        Component Image: <input type="file" name="image" onChange={(e) => handleComponentChange(index, e)} required />
+                        {component.preview && <img src={component.preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
+                        </p>
                     </div>
                 ))}
                 <button type="button" onClick={handleAddComponent}>Add Component</button>
