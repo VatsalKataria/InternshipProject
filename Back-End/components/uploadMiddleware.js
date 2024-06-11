@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const MachineModel = require('../models/Machines'); // Assuming you have a MachineModel
+const MachineModel = require('../models/Machines');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// Create a dynamic array of fields to handle images_0, images_1, etc.
 const fields = Array.from({ length: 10 }, (_, i) => ({ name: `images_${i}`, maxCount: 1 }));
 
 const upload = multer({ storage }).fields(fields);

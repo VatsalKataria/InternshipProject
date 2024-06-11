@@ -60,7 +60,7 @@ const Register = ({ user }) => {
                 <p>Confirm Password: <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></p>
                 {user && user.role === 'admin' && (
                     <p>Role:
-                        <select value={role} onChange={(e) => setRole(e.target.value)}>
+                        <select className="role-select" value={role} onChange={(e) => setRole(e.target.value)}>
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>

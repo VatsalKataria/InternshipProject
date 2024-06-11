@@ -5,7 +5,7 @@ const MachineModel = require('../models/Machines');
 // Fetch all machines
 router.get('/machines', async (req, res) => {
     try {
-        const machines = await MachineModel.find();
+        const machines = await MachineModel.find().sort({ createdAt: -1 });
         res.json(machines);
     } catch (error) {
         res.status(500).json({ error: error.message });

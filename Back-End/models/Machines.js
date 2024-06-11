@@ -12,6 +12,10 @@ const ComponentSchema = new mongoose.Schema({
     image: {
         type: String,
         required: true
+    },
+    category: { // Added category field
+        type: String,
+        required: true
     }
 });
 
@@ -21,7 +25,7 @@ const MachineSchema = new mongoose.Schema({
         required: true
     },
     components: [ComponentSchema]
-});
+}, { timestamps: true }); // Added timestamps to track upload time/date
 
 const MachineModel = mongoose.model('Machine', MachineSchema);
 module.exports = MachineModel;

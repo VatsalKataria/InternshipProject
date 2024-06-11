@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 const AddData = () => {
     const location = useLocation();
     const [machineName, setMachineName] = useState(location.state?.data?.machineName || '');
-    const [components, setComponents] = useState(location.state?.data?.components || [{ name: '', description: '', image: null, preview: '' }]);
+    const [components, setComponents] = useState(location.state?.data?.components || [{ name: '', description: '', image: null, preview: '', category: '' }]);
 
     const handleComponentChange = (index, event) => {
         const updatedComponents = [...components];
@@ -19,7 +19,7 @@ const AddData = () => {
     };
 
     const handleAddComponent = () => {
-        setComponents([...components, { name: '', description: '', image: null, preview: '' }]);
+        setComponents([...components, { name: '', description: '', image: null, preview: '', category: '' }]);
     };
 
     const handleSubmit = async (e) => {
@@ -44,7 +44,7 @@ const AddData = () => {
             if (response.ok) {
                 console.log('Data Added Successfully!!');
                 setMachineName('');
-                setComponents([{ name: '', description: '', image: null, preview: '' }]);
+                setComponents([{ name: '', description: '', image: null, preview: '', category: '' }]);
             } else {
                 console.error('Failed to add data to the DB');
             }
@@ -72,6 +72,9 @@ const AddData = () => {
                         </p>
                         <p>
                         Component Description: <input type="text" name="description" value={component.description} onChange={(e) => handleComponentChange(index, e)} required />
+                        </p>
+                        <p>
+                        Component Category: <input type="text" name="category" value={component.category} onChange={(e) => handleComponentChange(index, e)} required />
                         </p>
                         <p>
                         Component Image: <input type="file" name="image" onChange={(e) => handleComponentChange(index, e)} required />
