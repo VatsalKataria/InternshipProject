@@ -1,4 +1,6 @@
 import Navbar from './Components/Navbar';
+import ContactUs from './Components/ContactUs';
+import AboutUs from './Components/AboutUs';
 import AddData from './Components/AddData';
 import Register from './Components/Register';
 import Login from './Components/Login';
@@ -47,6 +49,16 @@ function App() {
           path="/dashboard"
           element={user ? <DashBoard user={user} /> : <Navigate to="/" />}
           />
+        <Route
+          exact
+          path="/contactus"
+          element={<ContactUs />} 
+          />
+        <Route 
+          exact  
+          path="/aboutus" 
+          element={<AboutUs />}
+           />
         <Route
           exact
           path="/adddata"

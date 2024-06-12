@@ -29,8 +29,8 @@ const Navbar = ({ user, setUser }) => {
       <img src={Logo} alt="Logo" className="Nav-logo" />
       <ul className="Nav-list">
         <li><Link to="/">Home</Link></li>
-        <li>Contact Us</li>
-        <li>About Us</li>
+        <li><Link to="/contactus">Contact Us</Link></li>
+        <li><Link to="/aboutus">About Us</Link></li>
         {user ? (
           <>
             <li><Link to="/dashboard">Dashboard</Link></li>
