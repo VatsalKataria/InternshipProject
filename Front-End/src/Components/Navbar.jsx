@@ -40,6 +40,7 @@ const Navbar = ({ user, setUser }) => {
                 <li><Link to="/updatedata">Update Data</Link></li>
                 <li><Link to="/machines">Display Machines</Link></li>
                 <li><Link to="/register">Register User</Link></li>
+                <li><Link to="/login-activities">Login Activities</Link></li> {/* New Link */}
               </>
             )}
             {user.role === 'user' && (

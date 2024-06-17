@@ -30,13 +30,12 @@ const loginUser = async (req, res) => {
         });
         await loginActivity.save();
 
-        res.json({ message: 'Login Successful!!', user: req.session.user });
+        res.json({ message: `Login Successful!! ${user.Username} just logged in.`, user: req.session.user });
     } catch (err) {
         console.error('Error during login:', err);
         res.status(500).json({ error: err.message });
     }
 };
-
 
 const logoutUser = async (req, res) => {
     const user = req.session.user;

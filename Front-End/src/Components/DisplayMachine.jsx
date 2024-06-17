@@ -65,29 +65,30 @@ const DisplayMachine = () => {
                             onChange={(e) => setFilter({ ...filter, date: e.target.value })}
                         />
                     </div>
-                {error ? (
-                    <p>Error: {error}</p>
-                ) : (
-                    filteredMachines.length > 0 ? (
-                        filteredMachines.map((machine, index) => (
-                            <div key={index}>
-                                <h3>{machine.machineName}</h3>
-                                <ul>
-                                    {machine.components.map((component, compIndex) => (
-                                        <li key={compIndex}>
-                                            {component.name}: {component.description}
-                                            <button className="display-img-button" onClick={() => window.open(`http://localhost:3000/images/${component.image}`, '_blank')}>
-                                                View Image
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))
+                    {error ? (
+                        <p>Error: {error}</p>
                     ) : (
-                        <p>No machines match the search criteria</p>
-                    )
-                )}
+                        filteredMachines.length > 0 ? (
+                            filteredMachines.map((machine, index) => (
+                                <div key={index}>
+                                    <h3>{machine.machineName}</h3>
+                                    <ul>
+                                        {machine.components.map((component, compIndex) => (
+                                            <li key={compIndex}>
+                                                <strong>{component.name}</strong> (Category: {component.category})
+                                                <p>{component.description}</p>
+                                                <button className="display-img-button" onClick={() => window.open(`http://localhost:3000/images/${component.image}`, '_blank')}>
+                                                    View Image
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No machines match the search criteria</p>
+                        )
+                    )}
                 </div>
             </div>
         </>

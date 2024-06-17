@@ -15,10 +15,23 @@ const MachineModel = require('./models/Machines');
 
 const app = express();
 app.use(bodyParser.json());
+
+
+const allowedOrigins = ['http://localhost:5173', 'http://192.168.122.12:5173'];
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: function (origin, callback) {
+        // allow requests with no origin
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
     credentials: true
 }));
+
 app.use(express.json());
 
 const sessionMiddleware = session({
@@ -26,7 +39,7 @@ const sessionMiddleware = session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/testdb' }),
-    cookie: { maxAge: 60 * 60 * 1000 } //session duration 1hrs
+    cookie: { maxAge: 60 * 60 * 1000 } // session duration 1hr
 });
 
 app.use(sessionMiddleware);
@@ -34,7 +47,7 @@ app.use(sessionMiddleware);
 app.post('/register', registerUser);
 app.use('/admin', isAdmin, adminRoutes);
 
-app.post('/', loginUser);
+app.post('/',loginUser);
 app.post('/logout', logoutUser);
 
 app.post('/adddata', upload, handleAddData);
@@ -50,14 +63,16 @@ app.use((req, res, next) => {
 });
 
 app.get('/session', getSession);
-app.get('/activity', getActivity);
+app.get('/activity', isAdmin, getActivity);  // Ensure only admins can access this route
+
+const port = 3000
 
 dbConnect
 .then(() => {
-    app.listen(3000, () => {
-      console.log(`Server is running on port 3000`);
+    app.listen(port, '0.0.0.0' ,() => {
+    console.log(`Server running on http://0.0.0.0:${port}`);
     });
 })
-  .catch((err) => {
+.catch((err) => {
     console.error('Failed to connect to MongoDB:', err);
-  });
+});

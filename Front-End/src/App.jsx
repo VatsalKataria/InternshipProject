@@ -12,6 +12,7 @@ import Footer from './Components/Footer';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import './App.css';
+import UserActivity from './Components/UserActivity'; // Import the new component
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,58 +37,63 @@ function App() {
 
   return (
     <div className='wrapper'>
-    <Router>
-      <Navbar user={user} setUser={setUser} />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />}
+      <Router>
+        <Navbar user={user} setUser={setUser} />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />}
           />
-        <Route
-          exact
-          path="/dashboard"
-          element={user ? <DashBoard user={user} /> : <Navigate to="/" />}
+          <Route
+            exact
+            path="/dashboard"
+            element={user ? <DashBoard user={user} /> : <Navigate to="/" />}
           />
-        <Route
-          exact
-          path="/contactus"
-          element={<ContactUs />} 
+          <Route
+            exact
+            path="/contactus"
+            element={<ContactUs />}
           />
-        <Route 
-          exact  
-          path="/aboutus" 
-          element={<AboutUs />}
-           />
-        <Route
-          exact
-          path="/adddata"
-          element={user && user.role === 'admin' ? <AddData /> : <Navigate to="/" />}
+          <Route
+            exact
+            path="/aboutus"
+            element={<AboutUs />}
           />
-        <Route
-          exact
-          path="/register"
-          element={user && user.role === 'admin' ? <Register user={user} /> : <Navigate to='/' />}
+          <Route
+            exact
+            path="/adddata"
+            element={user && user.role === 'admin' ? <AddData /> : <Navigate to="/" />}
           />
-        <Route
-          exact
-          path="/login"
-          element={<Login setUser={setUser} />}
+          <Route
+            exact
+            path="/register"
+            element={user && user.role === 'admin' ? <Register user={user} /> : <Navigate to='/' />}
           />
-        <Route
-          exact
-          path="/machines"
-          element={<DisplayMachine />}
+          <Route
+            exact
+            path="/login"
+            element={<Login setUser={setUser} />}
           />
-        <Route
-          exact
-          path="/updatedata"
-          element={user && user.role === 'admin' ? <UpdateData /> : <Navigate to="/" />}
+          <Route
+            exact
+            path="/machines"
+            element={<DisplayMachine />}
           />
-      </Routes>
-      <Footer/>
-    </Router>
-</div>
+          <Route
+            exact
+            path="/updatedata"
+            element={user && user.role === 'admin' ? <UpdateData /> : <Navigate to="/" />}
+          />
+          <Route
+            exact
+            path="/login-activities"
+            element={user && user.role === 'admin' ? <UserActivity /> : <Navigate to="/" />} // New Route
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 
